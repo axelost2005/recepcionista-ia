@@ -11,9 +11,9 @@ Convención de estado: `[ ]` pendiente · `[~]` en curso · `[x]` hecha · `[-]`
 
 - [x] **0.1 Scaffold del repo.** `create-next-app` con TypeScript, Tailwind v4, App Router, `src/`. Agregar Biome, Vitest, zod, `ai` + proveedores (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), `@supabase/supabase-js`, `@supabase/ssr`, `pg-boss`, `tsx`, `date-fns` + `date-fns-tz`. Scripts de `package.json` exactamente como los lista `CLAUDE.md`.
   - Verificación: `pnpm typecheck && pnpm lint && pnpm test` pasan con un test trivial. `pnpm dev` levanta.
-- [ ] **0.2 Config y env.** `src/lib/config.ts` con zod. `.env.example` completo. `scripts/hooks/*` funcionando (probar editando `.env` con Claude: debe bloquear).
+- [x] **0.2 Config y env.** `src/lib/config.ts` con zod. `.env.example` completo. `scripts/hooks/*` funcionando (probar editando `.env` con Claude: debe bloquear).
   - Verificación: arrancar sin una variable requerida falla con mensaje claro.
-- [ ] **0.3 Base de datos.** `supabase init`, `supabase start` (local), aplicar `0001_init.sql`, `pnpm db:types`. `scripts/seed.ts` + `pnpm seed:demo` carga Dental Nova.
+- [ ] **0.3 Base de datos.** `supabase init`, `supabase start` (local), aplicar `0001_init.sql`, `pnpm db:types`. `scripts/seed.ts` + `pnpm seed:demo` carga Dental Nova. Pasar a requeridas en `src/lib/config.ts` las variables de Supabase.
   - Verificación: `select count(*) from services where clinic_id = '...001'` = 6. `book_appointment` con dos turnos solapados lanza `SLOT_TAKEN`.
 - [ ] **0.4 Tokens de diseño + shell del panel.** `src/styles/tokens.css` con los tokens de `docs/DISENO.md`, shadcn instalado y re-tematizado, layout `(panel)` con rail, header y "Pulso de recepción" estático. Login con Supabase Auth (magic link).
   - Verificación: captura de pantalla del shell en desktop y mobile; contraste de texto ≥ 4.5:1 (verificar con los tokens).
@@ -22,7 +22,7 @@ Convención de estado: `[ ]` pendiente · `[~]` en curso · `[x]` hecha · `[-]`
 
 - [ ] **1.1 Cliente de WhatsApp.** `client.ts`: `sendText`, `sendTemplate`, `markRead`, `getMediaUrl`, `downloadMedia`. Tipos de `types.ts`. Errores tipados (`WindowClosedError`, `WhatsAppApiError`).
   - Verificación: test unitario con fetch mockeado; prueba manual enviando un texto al número de prueba.
-- [ ] **1.2 Webhook.** `route.ts` GET (verify) y POST (firma, `webhook_events`, parse, upsert contact/conversation, insert message con dedupe, encolar `turn`). Statuses actualizan `messages.status`.
+- [ ] **1.2 Webhook.** `route.ts` GET (verify) y POST (firma, `webhook_events`, parse, upsert contact/conversation, insert message con dedupe, encolar `turn`). Statuses actualizan `messages.status`. Pasar a requeridas en `src/lib/config.ts` las variables de WhatsApp.
   - Verificación: test con 3 payloads reales de Meta (texto, audio, status). Enviar el mismo payload dos veces → un solo message. Responde en < 1 s.
 - [ ] **1.3 Worker base.** `src/worker/index.ts` con pg-boss, cola `turn` con `singletonKey` + `startAfter 4 s`. Por ahora el job responde "Recibido" para probar el circuito completo.
   - Verificación: mandar 3 mensajes seguidos desde el celular → una sola respuesta después de ~4 s.
@@ -35,7 +35,7 @@ Convención de estado: `[ ]` pendiente · `[~]` en curso · `[x]` hecha · `[-]`
   - Verificación: tests de transiciones válidas e inválidas (ej. `perdido → turno_agendado` falla).
 - [ ] **2.3 Agenda.** `slots.ts` (rules − blocks − appointments, en hora local, próximos 14 días, franja mañana/tarde) y `book.ts` (usa `book_appointment`, mapea `SLOT_TAKEN`).
   - Verificación: tests con reglas de Dental Nova: martes a la mañana solo Dr. Soler y Dra. Méndez; feriado bloqueado no aparece.
-- [ ] **2.4 Tools + runTurn.** Las 4 tools con zod, `provider.ts`, `guardrails.ts`, `run-turn.ts` con el post-turno determinista. `agent_runs` completo.
+- [ ] **2.4 Tools + runTurn.** Las 4 tools con zod, `provider.ts`, `guardrails.ts`, `run-turn.ts` con el post-turno determinista. `agent_runs` completo. Pasar a requeridas en `src/lib/config.ts` las variables de LLM.
   - Verificación: `pnpm simulate saludo-basico` y `precio-brackets` en PASS.
 - [ ] **2.5 Simulador y escenarios base.** `scripts/simulate.ts` (WhatsApp falso en memoria, clínica por env, expectativas del JSON) + los 8 escenarios de `/simular`.
   - Verificación: `pnpm simulate all` → 8/8 PASS. El subagente `probador` devuelve una línea.
