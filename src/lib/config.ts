@@ -39,9 +39,10 @@ const envSchema = z
     META_APP_ID: z.string().optional(),
     META_APP_SECRET: z.string().optional(),
     WHATSAPP_VERIFY_TOKEN: z.string().optional(),
-    WHATSAPP_API_VERSION: z.string().default("v23.0"),
+    WHATSAPP_API_VERSION: z.string().default("v25.0"),
     WHATSAPP_DEV_PHONE_NUMBER_ID: z.string().optional(),
     WHATSAPP_DEV_ACCESS_TOKEN: z.string().optional(),
+    WHATSAPP_DEV_RECIPIENT: z.string().optional(),
 
     // LLM — flip to required in task 2.4; the chosen provider's key is enforced below
     LLM_PROVIDER: z.enum(["anthropic", "openai", "google"]).optional(),

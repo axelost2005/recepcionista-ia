@@ -15,7 +15,7 @@ describe("parseEnv", () => {
     expect(config.APP_URL).toBe("http://localhost:3000");
     expect(config.NODE_ENV).toBe("development");
     expect(config.LOG_LEVEL).toBe("info");
-    expect(config.WHATSAPP_API_VERSION).toBe("v23.0");
+    expect(config.WHATSAPP_API_VERSION).toBe("v25.0");
   });
 
   it("fails naming the missing required variable", () => {
