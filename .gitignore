@@ -1,0 +1,10 @@
+node_modules
+.next
+.env
+.env.local
+.env.production
+CLAUDE.local.md
+.claude/settings.local.json
+supabase/.branches
+supabase/.temp
+*.log

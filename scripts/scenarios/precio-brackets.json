@@ -1,0 +1,19 @@
+{
+  "clinic": "dental-nova",
+  "contact": { "wa_id": "5492990000002", "name": "Lucía" },
+  "turns": [
+    { "in": "hola" },
+    { "in": "quería saber cuánto salen los brackets" },
+    { "in": "es para mi hija de 14" },
+    { "in": "tienen algo el lunes a la tarde?" },
+    { "in": "16 está bien" }
+  ],
+  "expect": {
+    "tools_called": ["actualizar_lead", "ver_disponibilidad", "agendar_turno"],
+    "lead_status": "turno_agendado",
+    "reply_must_match_any": ["180", "450", "evaluación"],
+    "reply_must_not_match": ["diagn", "te recomiendo", "\\*\\*", "- "],
+    "max_bubbles_per_turn": 2,
+    "max_chars_per_bubble": 600
+  }
+}
