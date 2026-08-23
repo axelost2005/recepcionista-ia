@@ -46,10 +46,5 @@
     "typescript": "^5",
     "vitest": "^4.1.11"
   },
-  "packageManager": "pnpm@11.22.0",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "supabase"
-    ]
-  }
+  "packageManager": "pnpm@11.22.0"
 }
