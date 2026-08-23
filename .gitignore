@@ -8,3 +8,10 @@ CLAUDE.local.md
 supabase/.branches
 supabase/.temp
 *.log
+coverage
+out
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+*.pem

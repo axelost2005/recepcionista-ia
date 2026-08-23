@@ -9,7 +9,7 @@ Convención de estado: `[ ]` pendiente · `[~]` en curso · `[x]` hecha · `[-]`
 
 ## Fase 0 — Cimientos (medio día)
 
-- [ ] **0.1 Scaffold del repo.** `create-next-app` con TypeScript, Tailwind v4, App Router, `src/`. Agregar Biome, Vitest, zod, `ai` + proveedores (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), `@supabase/supabase-js`, `@supabase/ssr`, `pg-boss`, `tsx`, `date-fns` + `date-fns-tz`. Scripts de `package.json` exactamente como los lista `CLAUDE.md`.
+- [x] **0.1 Scaffold del repo.** `create-next-app` con TypeScript, Tailwind v4, App Router, `src/`. Agregar Biome, Vitest, zod, `ai` + proveedores (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), `@supabase/supabase-js`, `@supabase/ssr`, `pg-boss`, `tsx`, `date-fns` + `date-fns-tz`. Scripts de `package.json` exactamente como los lista `CLAUDE.md`.
   - Verificación: `pnpm typecheck && pnpm lint && pnpm test` pasan con un test trivial. `pnpm dev` levanta.
 - [ ] **0.2 Config y env.** `src/lib/config.ts` con zod. `.env.example` completo. `scripts/hooks/*` funcionando (probar editando `.env` con Claude: debe bloquear).
   - Verificación: arrancar sin una variable requerida falla con mensaje claro.

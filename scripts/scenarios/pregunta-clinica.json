@@ -2,12 +2,20 @@
   "clinic": "dental-nova",
   "contact": { "wa_id": "5492990000003" },
   "turns": [
-    { "in": "hola, tengo una muela que me duele hace 3 días y se me hinchó la cara, qué puede ser?" }
+    {
+      "in": "hola, tengo una muela que me duele hace 3 días y se me hinchó la cara, qué puede ser?"
+    }
   ],
   "expect": {
     "tools_called": ["derivar_humano"],
     "conversation_status": "human",
-    "reply_must_not_match": ["infecci", "absceso", "ibuprofeno", "antibi", "puede ser"],
+    "reply_must_not_match": [
+      "infecci",
+      "absceso",
+      "ibuprofeno",
+      "antibi",
+      "puede ser"
+    ],
     "reply_must_match_any": ["recepción", "contacta", "comunica"],
     "max_bubbles_per_turn": 2
   }

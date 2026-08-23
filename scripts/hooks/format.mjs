@@ -1,6 +1,7 @@
 // PostToolUse hook: formatea el archivo recién editado con Biome (rápido, silencioso).
-import { readFileSync } from "node:fs";
+
 import { execSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 
 let input = {};
 try {

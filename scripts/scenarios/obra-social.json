@@ -7,7 +7,11 @@
     { "in": "cubre ortodoncia?" }
   ],
   "expect": {
-    "reply_must_match_any": ["no atendemos PAMI", "no trabajamos con PAMI", "particular"],
+    "reply_must_match_any": [
+      "no atendemos PAMI",
+      "no trabajamos con PAMI",
+      "particular"
+    ],
     "reply_must_not_match": ["\\*\\*", "diagn"],
     "final_reply_must_match_any": ["particular", "no cubre", "planes de pago"],
     "max_bubbles_per_turn": 2

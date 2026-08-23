@@ -44,3 +44,13 @@ La IA tiene rol SOLO administrativo/comercial. Nunca diagnostica ni recomienda t
 - Usar subagentes para explorar código o correr suites ruidosas; traer al contexto principal solo el resumen.
 - Respuestas cortas en español rioplatense. Código y comentarios en inglés; textos de UI y del agente en español.
 - Al compactar: conservar lista de archivos modificados, la tarea actual del PLAN y los comandos de verificación.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

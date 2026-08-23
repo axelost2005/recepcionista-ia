@@ -1,6 +1,6 @@
 // PreToolUse hook: bloquea ediciones a archivos sensibles.
 // Claude Code pasa el JSON del evento por stdin. Exit 2 = bloquear (el mensaje de stderr vuelve a Claude).
-import { readFileSync, existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 
 let input = {};
@@ -22,13 +22,17 @@ if (/^\.env(\..+)?$/.test(rel) && rel !== ".env.example") {
 
 // 2) Migraciones aplicadas son inmutables: solo se crean archivos nuevos.
 if (rel.startsWith("supabase/migrations/") && existsSync(resolve(file))) {
-  console.error(`Bloqueado: ${rel} ya existe. Creá una migración nueva (NNNN_descripcion.sql).`);
+  console.error(
+    `Bloqueado: ${rel} ya existe. Creá una migración nueva (NNNN_descripcion.sql).`,
+  );
   process.exit(2);
 }
 
 // 3) Tipos generados no se editan a mano.
 if (rel === "src/lib/db/types.ts") {
-  console.error("Bloqueado: src/lib/db/types.ts es generado. Corré `pnpm db:types`.");
+  console.error(
+    "Bloqueado: src/lib/db/types.ts es generado. Corré `pnpm db:types`.",
+  );
   process.exit(2);
 }
 
