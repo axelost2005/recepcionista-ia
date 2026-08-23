@@ -45,6 +45,7 @@ La IA tiene rol SOLO administrativo/comercial. Nunca diagnostica ni recomienda t
 - Respuestas cortas en español rioplatense. Código y comentarios en inglés; textos de UI y del agente en español.
 - Al compactar: conservar lista de archivos modificados, la tarea actual del PLAN y los comandos de verificación.
 
+<!-- El bloque de abajo lo genera y actualiza `next dev` (Next 16.3+). No editarlo a mano. -->
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
