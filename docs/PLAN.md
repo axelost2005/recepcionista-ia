@@ -13,7 +13,7 @@ Convención de estado: `[ ]` pendiente · `[~]` en curso · `[x]` hecha · `[-]`
   - Verificación: `pnpm typecheck && pnpm lint && pnpm test` pasan con un test trivial. `pnpm dev` levanta.
 - [x] **0.2 Config y env.** `src/lib/config.ts` con zod. `.env.example` completo. `scripts/hooks/*` funcionando (probar editando `.env` con Claude: debe bloquear).
   - Verificación: arrancar sin una variable requerida falla con mensaje claro.
-- [ ] **0.3 Base de datos.** `supabase init`, `supabase start` (local), aplicar `0001_init.sql`, `pnpm db:types`. `scripts/seed.ts` + `pnpm seed:demo` carga Dental Nova. Pasar a requeridas en `src/lib/config.ts` las variables de Supabase.
+- [x] **0.3 Base de datos (Supabase hosteado).** `supabase init` + `supabase link --project-ref` contra el proyecto `recepcionista-ia-dev`, aplicar `0001_init.sql` con `pnpm db:push`, `pnpm db:types` (`--linked`). `scripts/seed.ts` + `pnpm seed:demo` carga Dental Nova. Pasar a requeridas en `src/lib/config.ts` las variables de Supabase, ahora con los nombres nuevos: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` y `SUPABASE_SECRET_KEY` (reemplazan a `ANON_KEY` y `SERVICE_ROLE_KEY`). Sin Docker: ver `docs/tareas/0.3-supabase-hosteado.md` y la decisión #14.
   - Verificación: `select count(*) from services where clinic_id = '...001'` = 6. `book_appointment` con dos turnos solapados lanza `SLOT_TAKEN`.
 - [ ] **0.4 Tokens de diseño + shell del panel.** `src/styles/tokens.css` con los tokens de `docs/DISENO.md`, shadcn instalado y re-tematizado, layout `(panel)` con rail, header y "Pulso de recepción" estático. Login con Supabase Auth (magic link).
   - Verificación: captura de pantalla del shell en desktop y mobile; contraste de texto ≥ 4.5:1 (verificar con los tokens).

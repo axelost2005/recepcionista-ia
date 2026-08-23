@@ -12,8 +12,8 @@
     "lint": "biome check",
     "lint:fix": "biome check --write",
     "simulate": "tsx scripts/simulate.ts",
-    "db:types": "supabase gen types typescript --local > src/lib/db/types.ts",
-    "db:push": "supabase db push",
+    "db:types": "supabase gen types typescript --linked --schema public > src/lib/db/types.ts && node scripts/check-types-encoding.mjs",
+    "db:push": "supabase db push --linked",
     "seed:demo": "tsx scripts/seed.ts dental-nova"
   },
   "dependencies": {
@@ -36,12 +36,20 @@
     "@biomejs/biome": "2.4.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "pg": "^8.23.0",
+    "supabase": "^2.115.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5",
     "vitest": "^4.1.11"
   },
-  "packageManager": "pnpm@11.22.0"
+  "packageManager": "pnpm@11.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "supabase"
+    ]
+  }
 }

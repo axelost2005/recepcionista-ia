@@ -12,17 +12,17 @@ Tiempo estimado total hasta demo funcional: 7 a 10 días de trabajo real, solo.
 1. **Meta for Developers** (developers.facebook.com): iniciá sesión con tu cuenta personal de Facebook → "Mis apps" → "Crear app" → tipo **Empresa** → nombre `Recepcionista IA` → vinculá o creá un **Meta Business Portfolio** de tu agencia.
 2. En la app: "Agregar producto" → **WhatsApp** → "Configurar". Te da un **número de prueba** y un **token temporal**. Anotá `Phone number ID`, `WhatsApp Business Account ID` y, en Configuración de la app → Básica, el `App ID` y el `App Secret`.
 3. En "API Setup" agregá tu celular y el de tu socio como destinatarios de prueba (verificación por código). Mandate el mensaje "hello_world" desde el panel para confirmar que llega.
-4. **Supabase** (supabase.com): proyecto nuevo `recepcionista-ia`, región `sa-east-1` (São Paulo). Guardá la contraseña de la base. Por ahora vas a trabajar con Supabase local; el proyecto hosteado se usa en fase 5.
+4. **Supabase** (supabase.com): proyecto nuevo `recepcionista-ia-dev`, región `sa-east-1` (São Paulo). **Guardá la contraseña de la base**: la vas a necesitar en la 0.3 para `supabase link` y para `DATABASE_URL`. La base de desarrollo es este proyecto hosteado, no un stack local (decisión #14); en fase 5 va un proyecto **separado** para producción.
 5. **Anthropic Console** (console.anthropic.com): API key para el agente. Cargá USD 10 para empezar. Si querés comparar proveedores, también OpenAI (te sirve para Whisper en audios).
 6. **GitHub**: repo privado `recepcionista-ia`.
 7. **ngrok** (ngrok.com): cuenta gratis + authtoken. Es lo que deja que Meta llegue a tu webhook local.
 8. (Ya, en paralelo, porque tarda) **Verificación de empresa en Meta Business Manager** → Centro de seguridad → "Iniciar verificación". Pide constancia de CUIT/ARCA, un documento con nombre y dirección (factura de servicio o extracto) y un dominio/email del negocio. No es requisito para arrancar, pero es el único paso que tarda días.
 
 ### Herramientas en tu máquina
-- Si estás en Windows: instalá **WSL2 (Ubuntu)** y hacé todo desde ahí. Los hooks y scripts asumen un shell tipo Unix. Si preferís Windows nativo, funciona, pero reescribí los hooks de `scripts/hooks/` con `shell: powershell` en `settings.json`.
-- Node LTS (vía `nvm`), `pnpm` (`corepack enable`), git, Docker Desktop (lo necesita Supabase local).
+- Si estás en Windows: WSL2 es opcional (ya no hay Docker de por medio). Windows nativo funciona; los hooks de `scripts/hooks/` son `.mjs` y corren con Node en cualquiera de los dos.
+- Node LTS (vía `nvm`), `pnpm` (`corepack enable`), git. **Docker no hace falta**: la base de desarrollo es el proyecto Supabase hosteado.
 - Claude Code: `curl -fsSL https://claude.ai/install.sh | bash` y `claude` para loguearte. Ya usás la extensión de VS Code; la CLI sirve para worktrees y headless.
-- Supabase CLI: `pnpm add -g supabase` o brew. `supabase login`.
+- Supabase CLI: se instala como dependencia del repo en la 0.3 (`pnpm add -D supabase`), no global. Después: `pnpm supabase login`.
 - `ngrok` instalado y `ngrok config add-authtoken <token>`.
 
 ---
@@ -43,7 +43,7 @@ Primera sesión de Claude Code (pegá tal cual):
 
 Después, una tarea por sesión siguiendo `docs/FLUJO-CLAUDE-CODE.md`. Orden: 0.1 → 0.2 → 0.3 → 0.4 → 1.1 → 1.2 → 1.3 → 2.x → 3.x → 4.x.
 
-Para la tarea 0.3 vas a necesitar Docker corriendo y `supabase start`. Te imprime `anon key`, `service_role key` y la URL: van a `.env.local`.
+Para la tarea 0.3 seguí `docs/tareas/0.3-supabase-hosteado.md`: `pnpm supabase login` + `link --project-ref <REF>`, después `pnpm db:push` y `pnpm db:types`. Las variables salen del Dashboard: Project Settings → API Keys (pestañas **Publishable** y **Secret**, no las legacy) y el botón Connect → **Session pooler** para `DATABASE_URL`. Al pegar esa cadena, borrá los corchetes de `[YOUR-PASSWORD]` junto con el placeholder.
 
 ---
 

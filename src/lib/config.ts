@@ -19,11 +19,21 @@ const envSchema = z
     APP_URL: z.url(),
     LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
 
-    // Supabase — flip to required in task 0.3 (values come from `supabase start`)
-    NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().optional(),
-    SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
-    DATABASE_URL: z.string().optional(),
+    // Supabase (hosted project — docs/DECISIONES.md #14)
+    NEXT_PUBLIC_SUPABASE_URL: z.url(),
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z
+      .string()
+      .startsWith("sb_publishable_"),
+    SUPABASE_SECRET_KEY: z.string().startsWith("sb_secret_"),
+    DATABASE_URL: z
+      .string()
+      .startsWith("postgres")
+      // The Dashboard string ships `[YOUR-PASSWORD]`; pasting over the text alone leaves
+      // the brackets in the password and Postgres answers 28P01 four steps later.
+      .refine((v) => !/[[\]]/.test(v), {
+        message:
+          "DATABASE_URL: borrá los [ ] del placeholder del Dashboard, no solo el texto de adentro",
+      }),
 
     // WhatsApp Cloud API — flip to required in task 1.2
     META_APP_ID: z.string().optional(),

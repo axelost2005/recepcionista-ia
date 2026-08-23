@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { parseEnv } from "./config";
 
-const base = { APP_URL: "http://localhost:3000" };
+const base = {
+  APP_URL: "http://localhost:3000",
+  NEXT_PUBLIC_SUPABASE_URL: "https://test.supabase.co",
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_test",
+  SUPABASE_SECRET_KEY: "sb_secret_test",
+  DATABASE_URL: "postgresql://user:pass@host:5432/postgres",
+};
 
 describe("parseEnv", () => {
   it("parses a minimal env and applies defaults", () => {
@@ -18,11 +24,33 @@ describe("parseEnv", () => {
   });
 
   it("treats empty string as unset", () => {
-    expect(() => parseEnv({ APP_URL: "" })).toThrow(/APP_URL/);
+    expect(() => parseEnv({ ...base, APP_URL: "" })).toThrow(/APP_URL/);
   });
 
   it("rejects a malformed URL", () => {
-    expect(() => parseEnv({ APP_URL: "not-a-url" })).toThrow(/APP_URL/);
+    expect(() => parseEnv({ ...base, APP_URL: "not-a-url" })).toThrow(
+      /APP_URL/,
+    );
+  });
+
+  it("fails naming a missing Supabase variable", () => {
+    const { SUPABASE_SECRET_KEY, ...withoutSecret } = base;
+    expect(() => parseEnv(withoutSecret)).toThrow(/SUPABASE_SECRET_KEY/);
+  });
+
+  it("rejects a legacy JWT pasted into the new key variable", () => {
+    expect(() =>
+      parseEnv({ ...base, SUPABASE_SECRET_KEY: "eyJhbGciOiJIUzI1NiJ9.legacy" }),
+    ).toThrow(/SUPABASE_SECRET_KEY/);
+  });
+
+  it("rejects a DATABASE_URL that kept the Dashboard placeholder brackets", () => {
+    expect(() =>
+      parseEnv({
+        ...base,
+        DATABASE_URL: "postgresql://user:[pass]@host:5432/postgres",
+      }),
+    ).toThrow(/borrá los \[ \] del placeholder/);
   });
 
   it("requires the API key of the chosen LLM provider", () => {
